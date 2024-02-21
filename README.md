@@ -6,5 +6,5 @@
 <li>faster loading</li>
 <li>organized</li>
 </ul>
-<h3>link of a page: </h3>
+<h3>link of a page: <a href="https://onlymatia.github.io/Hangman-game/">website</a></h3>
 
