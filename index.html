@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/510e0f8bd6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 
-    <title>Hangman-Game</title>
+    <title>Hangman v2</title>
     
 </head>
 <body>
-    <h1 class="header1">Hangman Game</h1>
-    <h3 class="header2">Press the button to start or restart game, enter letter by keyboard</h3>
-    
-    <div class="gameDiv"><img src="imgs/img1.png"></div>
+    <h1 id="headerMain">Click the button to start the game</h1>
 
-    <h2 class="gameText">Guessing text</h2>
+    <div id="gameDiv">
+    </div>
 
-    <button onclick="startGame()">Start</button>
+    <button class="btnCategory hide" onclick="startGame(countries)">Countries</button>
+    <button class="btnCategory hide" onclick="startGame(animals)">Animals</button>
+    <button class="btnCategory hide" onclick="startGame(random)">Random</button>
+
+    <button id="btn" onclick="selection()">Start Game</button>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

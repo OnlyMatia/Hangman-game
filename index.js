@@ -1,51 +1,120 @@
+const initalStartBtn = document.getElementById("btn")
+const categoryBtns = document.querySelectorAll(".btnCategory");
+const mainHeader = document.getElementById("headerMain")
+const gameDiv = document.getElementById("gameDiv")
 
-function startGame (){
-    $("img").attr("src", "imgs/img1.png");
-    var line = [];
-    var slova = [];
-    var num = 1;
-    var randomWord = ["banana", "sony", "kutija", "sladoled", "bozic", "prozor","jabuka", "naranca"];
-    $(".header2").text("Press the button to start or restart game, enter letter by keyboard");
 
-    var randNum = Math.floor(Math.random() * randomWord.length);
-    var word = randomWord[randNum];
+var countries = [
+    "United States",
+    "China",
+    "India",
+    "Brazil",
+    "Russia",
+    "Indonesia",
+    "Pakistan",
+    "Nigeria",
+    "Croatia",
+    "Japan",
+    "Mexico",
+    "Philippines",
+    "Egypt",
+    "Maldives",
+    "Vietnam"
+];
+var animals = [
+    "Lion",
+    "Tiger",
+    "Elephant",
+    "Giraffe",
+    "Zebra",
+    "Monkey",
+    "Kangaroo",
+    "Penguin",
+    "Panda",
+    "Gorilla",
+    "Dolphin",
+    "Wolf",
+    "Bear",
+    "Sloth",
+    "Cheetah"
+];
+var random = [
+    "Chair",
+    "Table",
+    "Laptop",
+    "Mountain",
+    "Notebook",
+    "Orange",
+    "Pizza",
+    "Cup",
+    "Sunglasses",
+    "Backpack",
+    "Watch",
+    "Television",
+    "Pen",
+    "Shoes",
+    "Phone",
+    "Guitar",
+    "Book",
+    "Clock",
+    "Camera",
+    "Pencil",
+    "Headphones",
+    "Basketball",
+    "Keyboard",
+    "Microphone",
+    "Candle",
+    "Wallet",
+    "Towel",
+    "Painting",
+    "Umbrella"
+];
 
-    var guessedWord = "_".repeat(word.length);
+//console.log(random);
 
-    for (let i = 0; i < word.length; i++) {
-        line.push("_ ");
+function selection(){
+    mainHeader.innerText = "Choose a category."
+    //console.log(categoryBtns);
+    categoryBtns.forEach((el) => {
+        el.classList.remove("hide")
+    })
+    initalStartBtn.classList.add("hide")
+}
+
+function startGame(cat){
+    categoryBtns.forEach((el) => {
+        el.classList.add("hide")
+    }) 
+
+    if(cat === countries){
+        mainHeader.innerText = `Category: Countries`
+    }else if(cat === animals){
+        mainHeader.innerText = `Category: Animals`
+    }else if(cat === random){
+        mainHeader.innerText = `Category: Random Word`
     }
-    var lineAll = line.join("");
-    $(".gameText").text(lineAll);
 
-    $(document).keypress(function(e) {
-        var x = e.key.toLowerCase();  
+    // adding starting hangman img
+    const hangmanImgs = document.createElement("img");
+    hangmanImgs.setAttribute("src", "imgs/img1.png");
+    gameDiv.appendChild(hangmanImgs);
 
-        slova.push(x);
-        $(".header2").text(slova+",");
+    // adding paragraph 
+    const displayText = document.createElement("p");
+    displayText.classList.add("GuessingWord");
+    gameDiv.appendChild(displayText);
 
-        if (guessedWord === word) {
-            $(".header2").text("You Win!");
-        } else if (word.includes(x)) {
-            for (var i = 0; i < word.length; i++) {
-                if (word[i] === x) {
-                    guessedWord = guessedWord.substr(0, i) + x + guessedWord.substr(i + 1);
-                }
-            }
-            $(".gameText").text(guessedWord);
+    let rijec;
 
-            if (guessedWord === word) {
-                $(".header2").text("You Win!");
-            }
-        } else {
-            $("img").attr("src", "imgs/img" + num + ".png");
-            num++;
-            if (num === 10) {
-                
-                $(".header2").text("You Lose! The correct word was: " + word);
-                
-            }
-        }
-    });
+    if(cat === countries){
+        rijec = countries[Math.floor(Math.random() * countries.length)]
+    }else if(cat === animals){
+        rijec = animals[Math.floor(Math.random() * animals.length)]
+    }else if(cat === random){
+        rijec = random[Math.floor(Math.random() * random.length)]
+    }
+    console.log(rijec);
+
+    
 
 }
