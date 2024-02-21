@@ -1,9 +1,9 @@
 <h1>//Changes</h1>
-<p colums="400px 1">
--updating design 
--adding to choose a category
--simpler look
--faster webpage
+<ul>
+<li>-updating design </li>
+<li>-adding to choose a category</li>
+<li>-simpler look</li>
+<li>-faster webpage</li>
+</ul>
+<h3>link of a page: </h3>
 
-link of a page: 
-</p>
