@@ -2,10 +2,10 @@ const initalStartBtn = document.getElementById("btn")
 const categoryBtns = document.querySelectorAll(".btnCategory");
 const mainHeader = document.getElementById("headerMain")
 const gameDiv = document.getElementById("gameDiv")
-
+const usedLetters = document.getElementById("usedLetters")
 
 var countries = [
-    "United States",
+    "Serbia",
     "China",
     "India",
     "Brazil",
@@ -70,11 +70,10 @@ var random = [
     "Umbrella"
 ];
 
-//console.log(random);
 
 function selection(){
     mainHeader.innerText = "Choose a category."
-    //console.log(categoryBtns);
+
     categoryBtns.forEach((el) => {
         el.classList.remove("hide")
     })
@@ -99,11 +98,6 @@ function startGame(cat){
     hangmanImgs.setAttribute("src", "imgs/img1.png");
     gameDiv.appendChild(hangmanImgs);
 
-    // adding paragraph 
-    const displayText = document.createElement("p");
-    displayText.classList.add("GuessingWord");
-    gameDiv.appendChild(displayText);
-
     let rijec;
 
     if(cat === countries){
@@ -113,8 +107,70 @@ function startGame(cat){
     }else if(cat === random){
         rijec = random[Math.floor(Math.random() * random.length)]
     }
-    console.log(rijec);
 
+    const word = Array.from(rijec.toLowerCase())
+    const lettersToLine = word.map(() => '_');
+
+    // adding paragraph and text in paragraph
+    const displayText = document.createElement("p");
+    displayText.classList.add("GuessingWord");
+    displayText.innerText = lettersToLine.join(" ")
+    gameDiv.appendChild(displayText);
     
+    const used = []
+    let counter = 1;
+    
+    document.addEventListener("keypress", (e) => {
+        let tipka = e.key
+        const displayedWord = word.join("").toUpperCase()
+        if(counter === 10){
+            mainHeader.style.color = "red";
+            mainHeader.innerText = `You Lose, the word was ${displayedWord}`;
+            restartGame()
+            return;
+        }
+        if(!word.includes(tipka) && !used.includes(tipka)){
+            hangmanImgs.setAttribute("src", "imgs/img" + counter +".png");
+            counter++;
+            console.log(counter);
+        }
+        if(lettersToLine.join() !== word.join()){
+            if(!used.includes(tipka)){
+                used.push(tipka)
+            }
+            if(!word.includes(tipka)){               
+                usedLetters.innerText = used;
+                //-1 life if letter not in word 
+            }else{                                   
+                for (let i = 0; i < word.length; i++) {
+                    if(tipka === word[i]){
+                        lettersToLine[i] = tipka;
+                    }
+                }
+                displayText.innerText = lettersToLine.join(" ")
+                if(lettersToLine.join() === word.join()){
+                    mainHeader.innerText = `You Win!`
+                    mainHeader.style.color = "blue"
+                    
+                    restartGame()
+                }
+            }
+        }
 
+    })  
+}
+
+
+function restartGame(){
+    const restartBtn = document.createElement("button");
+    restartBtn.innerText = "Restart Game";
+    document.body.appendChild(restartBtn);
+    restartBtn.addEventListener("click", () => {
+
+        document.body.removeChild(restartBtn);
+        gameDiv.innerHTML = '';
+        usedLetters.innerHTML = '';
+        mainHeader.style.color = "black"
+        selection();
+    });
 }
